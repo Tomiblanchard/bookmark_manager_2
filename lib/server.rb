@@ -60,12 +60,31 @@ class BookmarkManager < Sinatra::Base
     end
   end
 
+
+
+  get '/sessions/new' do
+    erb :'sessions/new'
+  end
+
+  post '/sessions' do
+    email, password = params[:email], params[:password]
+    user = User.authenticate(email, password)
+    if user
+      # puts session.inspect
+      session[:user_id] = user.id
+      redirect to('/')
+    else
+        flash[:errors] = ['The email or password is incorrect']
+        # puts session.inspect
+        erb :'sessions/new'
+    end
+  end
+
   helpers do
 
     def current_user
-      @current_user ||=User.get(session[:user_id]) if session[:user_id]
+      @current_user ||= User.get(session[:user_id]) if session[:user_id]
     end
-
   end
 
   run! if app_file == $PROGRAM_NAME

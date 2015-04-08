@@ -8,6 +8,7 @@ gem 'data_mapper'
 gem 'database_cleaner'
 gem 'dm-postgres-adapter'
 gem 'shotgun'
+gem 'rake'
 
 group :test do
   gem 'bcrypt-ruby'
@@ -18,4 +19,5 @@ group :test do
   gem 'rspec'
   gem 'rubocop'
   gem 'rubocop-rspec'
+  gem 'launchy'
 end
