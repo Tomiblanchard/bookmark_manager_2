@@ -2,6 +2,12 @@ require 'sinatra/base'
 require 'data_mapper'
 require 'tag'
 require 'user'
+require 'link'
+# require './lib/helpers/application'
+
+
+# enable :sessions
+# set :session_secret, 'super secret'
 
 env = ENV['RACK_ENV'] || 'development'
 
@@ -12,6 +18,9 @@ DataMapper.finalize
 DataMapper.auto_upgrade!
 
 class BookmarkManager < Sinatra::Base
+
+  enable :sessions
+  set :session_secret, 'super secret'
 
 
   get '/' do
@@ -40,9 +49,18 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/users' do
-    User.create(email: params[:email],
+    user = User.create(email: params[:email],
                 password: params[:password])
+    session[:user_id] = user.id
     redirect to('/')
+  end
+
+  helpers do
+
+    def current_user
+      @current_user ||=User.get(session[:user_id]) if session[:user_id]
+    end
+
   end
 
   run! if app_file == $PROGRAM_NAME

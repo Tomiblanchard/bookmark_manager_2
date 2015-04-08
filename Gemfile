@@ -17,4 +17,5 @@ group :test do
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'shotgun'
+  gem 'bcrypt-ruby'
 end
