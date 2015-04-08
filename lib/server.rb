@@ -1,13 +1,8 @@
 require 'sinatra/base'
 require 'data_mapper'
-require 'tag'
-require 'user'
-require 'link'
-# require './lib/helpers/application'
-
-
-# enable :sessions
-# set :session_secret, 'super secret'
+require './lib/tag'
+require './lib/user'
+require './lib/link'
 
 env = ENV['RACK_ENV'] || 'development'
 
