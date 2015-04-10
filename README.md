@@ -35,5 +35,6 @@ Technologies used
 * CSS
 * HTML
 * PostgresQL
+* BCrypt
 * DataMapper
 * Heroku
