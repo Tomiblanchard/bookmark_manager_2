@@ -9,6 +9,7 @@ gem 'database_cleaner'
 gem 'dm-postgres-adapter'
 gem 'shotgun'
 gem 'rake'
+gem 'sinatra-partial', '~> 0.4.0'
 
 group :test do
   gem 'bcrypt-ruby'

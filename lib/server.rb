@@ -13,13 +13,12 @@ require './lib/link'
 DataMapper.finalize
 DataMapper.auto_upgrade!
 
-
-
 class BookmarkManager < Sinatra::Base
 
   enable :sessions
   set :session_secret, 'super secret'
   use Rack::Flash
+  use Rack::MethodOverride
 
   get '/' do
     @links = Link.all
@@ -60,8 +59,6 @@ class BookmarkManager < Sinatra::Base
     end
   end
 
-
-
   get '/sessions/new' do
     erb :'sessions/new'
   end
@@ -78,6 +75,11 @@ class BookmarkManager < Sinatra::Base
         # puts session.inspect
         erb :'sessions/new'
     end
+  end
+
+  delete '/sessions' do
+    session[:user_id] = nil
+    erb :'sessions/goodbye'
   end
 
   helpers do
