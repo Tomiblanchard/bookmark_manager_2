@@ -4,6 +4,7 @@ require './lib/tag'
 require './lib/user'
 require './lib/link'
 require 'rack-flash'
+require 'mailgun'
 
 env = ENV['RACK_ENV'] || 'development'
 
@@ -80,6 +81,19 @@ class BookmarkManager < Sinatra::Base
   delete '/sessions' do
     session[:user_id] = nil
     erb :'sessions/goodbye'
+  end
+
+  get '/reset_password' do
+    if params[:email]
+      user = User.first(email: email)
+      # avoid having to memoriwe ascii codes
+      user.password_token = (1..64).map{('A'..'Z').to_a.sample}.join
+      user.password_token_timestamp = Time.now
+      user.save
+      erb :'/reset_password/confirmation'
+    else
+      erb :'/reset_pasword/request'
+    end
   end
 
   helpers do

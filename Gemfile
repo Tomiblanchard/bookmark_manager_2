@@ -21,4 +21,5 @@ group :test do
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'launchy'
+  gem 'mailgun-ruby', '~>1.0.3', require: 'mailgun'
 end
